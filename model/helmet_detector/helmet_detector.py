@@ -35,6 +35,9 @@ def helmet_detect(input_path):
     frame_counter = 0
     processed_counter = 0  # Counter to keep track of the processed frames
 
+    # Create a list to hold frames with no-helmet motorcycles
+    no_helmet_frames = []
+
     # Get results from the model (streaming)
     results = model(source=input_path, stream=True)
 
@@ -65,21 +68,28 @@ def helmet_detect(input_path):
             elif class_id == 1:  # No helmet detected
                 motorcycles[(x1, y1, x2, y2)] = True  # Mark as no helmet
 
-        # Only draw bounding boxes for motorcycles without helmets
+        # Only store frames that contain motorcycles without helmets
         for (x1, y1, x2, y2), no_helmet in motorcycles.items():
             if no_helmet:
                 frame_counter += 1
                 color = (0, 0, 255)  # Red box for no helmet
                 cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)  # Draw bounding box
 
-                # Save the frame with the motorcycle without helmet
-                output_image_path = os.path.join(output_dir, f"no_helmet_{frame_counter}.jpg")
-                cv2.imwrite(output_image_path, frame)  # Save the image
-                print(f"Saved frame with no helmet: {output_image_path}")
+                # Append the frame with the motorcycle without helmet to the list
+                no_helmet_frames.append(frame.copy())
+                print(f"Added frame with no helmet to list: Frame {frame_counter}")
 
     # Release the video capture resource
     cap.release()
 
+    # Return the list of frames with no-helmet motorcycles
+    return no_helmet_frames
 
 # Example usage
-helmet_detect(input_path)
+no_helmet_images = helmet_detect(input_path)
+
+# Print the number of frames found with no-helmet motorcycles
+print(f"Total frames with no-helmet motorcycles: {len(no_helmet_images)}")
+
+# from IPython import embed
+# embed()
