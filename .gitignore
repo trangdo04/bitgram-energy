@@ -9,3 +9,4 @@ venv.bak/
 .venv/
 *.pyc
 output/
+node_modules/
