@@ -11,8 +11,8 @@ parent_dir = os.path.dirname(parent_dir)
 ckpt_path = os.path.join(current_dir, "ckpt", "helmet-detect-yolov8.pt")
 
 # NOTE: modify this
-input_path = 'D:\\VSC\\bitgram-energy\\model\\data\\input\\movie2.mp4'
-output_dir = "D:\\VSC\\bitgram-energy\\model\\data\\output"
+input_path = 'C:\\Users\\trangdo\\Documents\\HocTap\\Khác\\bitgram\\bitgram-energy\\model\\data\\input\\movie2.mp4'
+output_dir = "C:\\Users\\trangdo\\Documents\\HocTap\\Khác\\bitgram\\bitgram-energy\\model\\data\\output"
 
 # Ensure output directory exists
 os.makedirs(output_dir, exist_ok=True)
@@ -29,7 +29,7 @@ def helmet_detect(input_path):
     frames_to_skip = int(fps / desired_fps)  # Calculate how many frames to skip
     
     # Load the YOLO model
-    model = YOLO('D:\\VSC\\bitgram-energy\\model\\helmet_detector\\ckpt\\helmet-detect-yolov8.pt')
+    model = YOLO('C:\\Users\\trangdo\\Documents\\HocTap\\Khác\\bitgram\\bitgram-energy\\model\\helmet_detector\\ckpt\\helmet-detect-yolov8.pt')
 
     # Initialize frame counter for naming output images
     frame_counter = 0
