@@ -2,6 +2,7 @@
 
 import hydra
 import torch
+import numpy as np
 
 from ultralytics.yolo.engine.predictor import BasePredictor
 from ultralytics.yolo.utils import DEFAULT_CONFIG, ROOT, ops
