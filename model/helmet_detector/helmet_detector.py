@@ -11,7 +11,7 @@ parent_dir = os.path.dirname(parent_dir)
 ckpt_path = os.path.join(current_dir, "ckpt", "helmet-detect-yolov8.pt")
 
 # NOTE: modify this
-# input_path = 'D:\\VSC\\bitgram-energy\\model\\data\\input\\movie2.mp4'
+input_path = 'D:\\VSC\\bitgram-energy\\model\\data\\input\\movie2.mp4'
 output_dir = "D:\\VSC\\bitgram-energy\\model\\data\\output"
 
 # Ensure output directory exists
@@ -87,7 +87,7 @@ def helmet_detect(input_path):
 
 # Example usage
 # no_helmet_images = helmet_detect(input_path)
-
+# print(no_helmet_images[:2])
 # Print the number of frames found with no-helmet motorcycles
 # print(f"Total frames with no-helmet motorcycles: {len(no_helmet_images)}")
 

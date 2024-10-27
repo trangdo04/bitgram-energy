@@ -4,6 +4,7 @@ import path from 'path'
 import cors from 'cors'
 import { connectDB } from './config/database.js'
 import outputRouter from './outputRoute.js'
+import FormData from 'form-data';
 
 // initialize app
 const app = express()
@@ -16,31 +17,31 @@ const upload = multer({storage});
 
 app.post('/upload-video', upload.single('video'), async (req, res) => {
     if (!req.file) {
-        return res.status(400).json({message: 'No video file uploaded. '});
+        return res.status(400).json({ message: 'No video file uploaded.' });
     }
 
-    // buffer to save video temporarily
     const videoBuffer = req.file.buffer;
+    const formData = new FormData();
+    formData.append('video', videoBuffer, {
+        filename: req.file.originalname,
+        contentType: req.file.mimetype,
+    });
 
     try {
-        const response = await axios.post('http://localhost:5001/process-video', videoBuffer, {
+        const response = await axios.post('http://localhost:5000/process-video', formData, {
             headers: {
-                'Content-Type': 'application/octet-stream'
+                ...formData.getHeaders(),
             },
         });
 
         return res.status(200).json({
             message: 'Video uploaded and processed successfully',
-            data: response.data
-        })
+            data: response.data,
+        });
     } catch (error) {
-        console.error('Error sending video to Python model:', error);
+        console.error('Error sending video to Python model:', error.message);
         return res.status(500).json({ message: 'Error processing video.' });
     }
-
-    console.log('Video received:',req.file.originalname);
-    return res.status(200).json({message: 'Video uploaded successfully. '});
-
 });
 
 
