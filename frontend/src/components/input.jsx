@@ -1,13 +1,28 @@
 import React, { useState } from 'react';
 
+
 function Input() {
     const [video, setVideo] = useState(null);
 
-    const handleFileChange = (e) => {
+    const handleFileChange = async (e) => {
         const file = e.target.files[0];
         if (file && file.type.includes('video')) {
             const videoURL = URL.createObjectURL(file);
             setVideo(videoURL);
+
+            const formData = new FormData();
+            formData.append('video', file);
+
+        try {
+            const response = await axios.post('http://localhost:5000/process-video', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log('Video uploaded successfully:', response.data);
+            } catch (error) {
+                console.error('Error sending video to the server:', error.message);
+            }
         }
     };
 
