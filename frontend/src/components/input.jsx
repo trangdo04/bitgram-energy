@@ -14,15 +14,28 @@ function Input() {
             formData.append('video', file);
 
         try {
-            const response = await axios.post('http://localhost:5000/process-video', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
+            const response = await fetch('http://localhost:5000/process-video', {
+                method: 'POST',
+                // headers: {
+                //     'Content-Type': 'multipart/form-data',
+                // },
+                body: formData,
             });
-            console.log('Video uploaded successfully:', response.data);
-            } catch (error) {
-                console.error('Error sending video to the server:', error.message);
+            if (!response.ok) {
+                throw new Error('Failed to login');
             }
+    
+            const data = await response.json();
+            if (data===null){
+                throw new Error('Failed ');
+            }
+            console.log("Success");
+            
+        } catch (error) {
+            alert('Failed to upload video');
+            console.error('Error', error);
+            throw error;
+        }
         }
     };
 
