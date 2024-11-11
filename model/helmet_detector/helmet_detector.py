@@ -11,8 +11,8 @@ parent_dir = os.path.dirname(parent_dir)
 ckpt_path = os.path.join(current_dir, "ckpt", "helmet-detect-yolov8.pt")
 
 # NOTE: modify this
-input_path = 'D:\\VSC\\bitgram-energy\\model\\data\\input\\movie2.mp4'
-output_dir = "D:\\VSC\\bitgram-energy\\model\\data\\output"
+input_path = 'D:\\1\\Hacka\\bitgram-energy\\model\\data\\input\\movie2.mp4'
+output_dir = "D:\\1\\Hacka\\bitgram-energy\\model\\data\\output"
 
 # Ensure output directory exists
 os.makedirs(output_dir, exist_ok=True)
@@ -29,7 +29,7 @@ def helmet_detect(input_path):
     frames_to_skip = int(fps / desired_fps)  # Calculate how many frames to skip
     
     # Load the YOLO model
-    model = YOLO('D:\\VSC\\bitgram-energy\\model\\helmet_detector\\ckpt\\helmet-detect-yolov8.pt')
+    model = YOLO('D:\\1\\Hacka\\bitgram-energy\\model\\helmet_detector\\ckpt\\helmet-detect-yolov8.pt')
 
     # Initialize frame counter for naming output images
     frame_counter = 0
@@ -77,6 +77,9 @@ def helmet_detect(input_path):
 
                 # Append the frame with the motorcycle without helmet to the list
                 no_helmet_frames.append(frame.copy())
+                frame_path = os.path.join(output_dir, f'no_helmet_frame_{frame_counter}.jpg')
+                cv2.imwrite(frame_path, frame)
+                print(f"Saved frame {frame_counter} as {frame_path}")
                 print(f"Added frame with no helmet to list: Frame {frame_counter}")
 
     # Release the video capture resource
