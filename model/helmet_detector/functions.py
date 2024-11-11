@@ -1,9 +1,8 @@
-
 import cv2
 import torch
 import torch.backends.cudnn as cudnn
-from models.experimental import attempt_load
-from utils.general import non_max_suppression
+from helmet_detector.yolo.experimental import attempt_load
+from helmet_detector.utils.general import non_max_suppression
 from torchvision import models
 from torchvision import transforms
 from PIL import Image
@@ -11,18 +10,19 @@ import time
 import os
 
 current = os.getcwd()
-yolov5_weight_file = current + '\\yolo\\ckpt\\detector_small.pt' # ... may need full path
-helmet_classifier_weight = current + '\\yolo\\ckpt\\helmet_classifier.pth'
+yolov5_weight_file = current + '\\helmet_detector\\yolo\\ckpt\\detector_small.pt' # ... may need full path
+helmet_classifier_weight = current + '\\helmet_detector\\yolo\\ckpt\\helmet_classifier.pth'
 conf_set=0.35 
 frame_size=(800, 480) 
 head_classification_threshold= 3.0 # make this value lower if want to detect non helmet more aggresively;
 
-
+print(current)
 # Some list of shape yolov5 except
 # 1824, 1376 
 # 1024, 576 # cs=4.1
 # 928, 544
 # 800, 480 # cs=3.9
+
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = attempt_load(yolov5_weight_file, map_location=device)
