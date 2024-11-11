@@ -1,7 +1,7 @@
 from flask import Flask, request
 from tempfile import NamedTemporaryFile
 import os
-from helmet_detector.helmet_detector import helmet_detect
+from helmet_detector.main import process_video as helmet_detect
 
 app = Flask(__name__)
 
