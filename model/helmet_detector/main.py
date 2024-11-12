@@ -1,7 +1,8 @@
-from functions import *
+from helmet_detector.functions import *
+
 
 # Get the parent directory
-parent_dir = os.path.dirname(current_directory)
+parent_dir = os.path.dirname(current)
 def process_video(source:str=parent_dir+'\\data\\input\\input2.mp4',
 				  save_video:bool=True,
 				  show_video:bool=True,
@@ -74,8 +75,6 @@ def process_video(source:str=parent_dir+'\\data\\input\\input2.mp4',
 			if show_video: # show video
 				frame = cv2.resize(frame, (900, 450))  # resizing to fit in screen
 				cv2.imshow('Frame', frame)
-
-
 			if cv2.waitKey(1) & 0xFF == ord('q'):
 				break	
 		else:
