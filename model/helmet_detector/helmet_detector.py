@@ -29,7 +29,7 @@ def helmet_detect(input_path):
     frames_to_skip = int(fps / desired_fps)  # Calculate how many frames to skip
     
     # Load the YOLO model
-    model = YOLO('D:\\1\\Hacka\\bitgram-energy\\model\\helmet_detector\\ckpt\helmet-detect-yolov8.pt')
+    model = YOLO('D:\\1\\Hacka\\bitgram-energy\\model\\helmet_detector\\ckpt\\helmet-detect-yolov8.pt')
 
     # Initialize frame counter for naming output images
     frame_counter = 0
