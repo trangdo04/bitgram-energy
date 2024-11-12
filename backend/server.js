@@ -51,7 +51,7 @@ app.use(cors())
 app.use("/api/output", outputRouter)
 
 // uncomment below line to connect to DB
-// connectDB();
+connectDB();
 
 // check with api
 app.get("/",(req, res)=>{
