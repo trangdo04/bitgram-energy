@@ -29,7 +29,7 @@ def helmet_detect(input_path):
     frames_to_skip = int(fps / desired_fps)  # Calculate how many frames to skip
     
     # Load the YOLO model
-    model = YOLO('D:\\Bit garam\\bitgram-energy\\model\\helmet_detector\\ckpt\helmet-detect-yolov8.pt')
+    model = YOLO('D:\\1\\Hacka\\bitgram-energy\\model\\helmet_detector\\ckpt\helmet-detect-yolov8.pt')
 
     # Initialize frame counter for naming output images
     frame_counter = 0
@@ -71,29 +71,29 @@ def helmet_detect(input_path):
         for (x1, y1, x2, y2), no_helmet in motorcycles.items():
             if no_helmet:
                 frame_counter += 1
-                # color = (0, 0, 255)  # Red box for no helmet
-                # cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)  # Draw bounding box
-                # Expand the bounding box by 20 pixels in each direction
-                margin = 20
+                color = (0, 0, 255)  # Red box for no helmet
+                cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)  # Draw bounding box
 
-                # Ensure the new coordinates stay within the image bounds
-                x1_expanded = max(0, x1 - margin)  # Avoid going out of bounds on the left
-                y1_expanded = max(0, y1 - margin)  # Avoid going out of bounds on the top
-                x2_expanded = min(frame.shape[1], x2 + margin)  # Avoid going out of bounds on the right
-                y2_expanded = min(frame.shape[0], y2 + margin)  # Avoid going out of bounds on the bottom
 
-                # Crop the image with the expanded bounding box
-                cropped_frame = frame[y1_expanded:y2_expanded, x1_expanded:x2_expanded]
+                # # Expand the bounding box by 20 pixels in each direction
+                # margin = 20
+
+                # # Ensure the new coordinates stay within the image bounds
+                # x1_expanded = max(0, x1 - margin)  # Avoid going out of bounds on the left
+                # y1_expanded = max(0, y1 - margin)  # Avoid going out of bounds on the top
+                # x2_expanded = min(frame.shape[1], x2 + margin)  # Avoid going out of bounds on the right
+                # y2_expanded = min(frame.shape[0], y2 + margin)  # Avoid going out of bounds on the bottom
+
+                # # Crop the image with the expanded bounding box
+                # cropped_frame = frame[y1_expanded:y2_expanded, x1_expanded:x2_expanded]
+                # no_helmet_frames.append(cropped_frame.copy())
+                # frame_path = os.path.join(output_dir, f'no_helmet_frame_{frame_counter}.jpg')
+                # cv2.imwrite(frame_path, cropped_frame)
+                # print(f"Saved frame {frame_counter} as {frame_path}")
+
 
                 # Append the frame with the motorcycle without helmet to the list
-<<<<<<< Updated upstream
                 no_helmet_frames.append(frame.copy())
-=======
-                no_helmet_frames.append(cropped_frame.copy())
-                frame_path = os.path.join(output_dir, f'no_helmet_frame_{frame_counter}.jpg')
-                cv2.imwrite(frame_path, cropped_frame)
-                print(f"Saved frame {frame_counter} as {frame_path}")
->>>>>>> Stashed changes
                 print(f"Added frame with no helmet to list: Frame {frame_counter}")
 
     # Release the video capture resource
@@ -102,9 +102,9 @@ def helmet_detect(input_path):
     # Return the list of frames with no-helmet motorcycles
     return no_helmet_frames
 
-# Example usage
-no_helmet_images = helmet_detect(input_path)
-print(no_helmet_images[:2])
-# Print the number of frames found with no-helmet motorcycles
-print(f"Total frames with no-helmet motorcycles: {len(no_helmet_images)}")
+# # Example usage
+# no_helmet_images = helmet_detect(input_path)
+# print(no_helmet_images[:2])
+# # Print the number of frames found with no-helmet motorcycles
+# print(f"Total frames with no-helmet motorcycles: {len(no_helmet_images)}")
 
