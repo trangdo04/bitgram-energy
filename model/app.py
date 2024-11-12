@@ -31,5 +31,7 @@ def process_video():
         if os.path.exists(temp_video_path):
             os.remove(temp_video_path)
 
+    return result
+
 if __name__ == '__main__':
     app.run(port=5000)

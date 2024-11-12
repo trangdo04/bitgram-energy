@@ -40,7 +40,6 @@ def helmet_detect(input_path):
 
     # Get results from the model (streaming)
     results = model(source=input_path, stream=True)
-
     # Process video frames
     for r in results:
         frame = r.orig_img  # Get the original frame from the results
@@ -72,11 +71,29 @@ def helmet_detect(input_path):
         for (x1, y1, x2, y2), no_helmet in motorcycles.items():
             if no_helmet:
                 frame_counter += 1
-                color = (0, 0, 255)  # Red box for no helmet
-                cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)  # Draw bounding box
+                # color = (0, 0, 255)  # Red box for no helmet
+                # cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)  # Draw bounding box
+                # Expand the bounding box by 20 pixels in each direction
+                margin = 20
+
+                # Ensure the new coordinates stay within the image bounds
+                x1_expanded = max(0, x1 - margin)  # Avoid going out of bounds on the left
+                y1_expanded = max(0, y1 - margin)  # Avoid going out of bounds on the top
+                x2_expanded = min(frame.shape[1], x2 + margin)  # Avoid going out of bounds on the right
+                y2_expanded = min(frame.shape[0], y2 + margin)  # Avoid going out of bounds on the bottom
+
+                # Crop the image with the expanded bounding box
+                cropped_frame = frame[y1_expanded:y2_expanded, x1_expanded:x2_expanded]
 
                 # Append the frame with the motorcycle without helmet to the list
+<<<<<<< Updated upstream
                 no_helmet_frames.append(frame.copy())
+=======
+                no_helmet_frames.append(cropped_frame.copy())
+                frame_path = os.path.join(output_dir, f'no_helmet_frame_{frame_counter}.jpg')
+                cv2.imwrite(frame_path, cropped_frame)
+                print(f"Saved frame {frame_counter} as {frame_path}")
+>>>>>>> Stashed changes
                 print(f"Added frame with no helmet to list: Frame {frame_counter}")
 
     # Release the video capture resource
@@ -86,8 +103,8 @@ def helmet_detect(input_path):
     return no_helmet_frames
 
 # Example usage
-# no_helmet_images = helmet_detect(input_path)
-# print(no_helmet_images[:2])
+no_helmet_images = helmet_detect(input_path)
+print(no_helmet_images[:2])
 # Print the number of frames found with no-helmet motorcycles
-# print(f"Total frames with no-helmet motorcycles: {len(no_helmet_images)}")
+print(f"Total frames with no-helmet motorcycles: {len(no_helmet_images)}")
 
