@@ -3,7 +3,7 @@ from ultralytics import YOLO
 import cv2
 
 # Define class IDs for motorbike and helmet
-MOTORBIKE_CLASS_ID = 1  
+RIDER_CLASS_ID = 1  
 HELMET_CLASS_ID = 2     
 NO_HELMET_CLASS_ID = 3
 
@@ -18,27 +18,28 @@ def helmet_detect(input_path):
     frame_count = 0  # To keep track of frame numbers for unique image filenames
     for r in results:
         frame = r.orig_img
-        contains_motorbike_without_helmet = False
+        # Get all motorbike boxes in the frame
+        motorbike_boxes = [box for box in r.boxes if int(box.cls[0]) == RIDER_CLASS_ID]
 
-        # Check each detected box
-        for box in r.boxes:
-            class_id = int(box.cls[0])  # Get the class ID of the detected object
+        # Check if any "no helmet" class exists in the frame
+        no_helmet_exists = any(int(box.cls[0]) == NO_HELMET_CLASS_ID for box in r.boxes)
 
-            if class_id == MOTORBIKE_CLASS_ID:
-                # Check if there is no helmet in the same frame
-                if not any(int(b.cls[0]) == HELMET_CLASS_ID for b in r.boxes):
-                    contains_motorbike_without_helmet = True
-                    break  # Stop checking once confirmed
-
-        # Save only frames with motorbikes without helmets as images
-        if contains_motorbike_without_helmet:
-            frame_filename = os.path.join(output_dir, f'frame_{frame_count:04d}.jpg')
-            cv2.imwrite(frame_filename, frame)
-            frame_count += 1
-            list_image.append(frame.copy())
-    print(f"Images with motorbikes without helmets saved in {output_dir}")
+        # If there are motorbike boxes and a "no helmet" detection, save the motorbike crops
+        if motorbike_boxes and no_helmet_exists:
+            for motorbike_box in motorbike_boxes:
+                x1, y1, x2, y2 = map(int, motorbike_box.xyxy[0])
+                # xx1,yy1,xx2,yy2 = map(int, no_helmet_exists.xyxy[0])
+                # color = (0, 0, 255)  # Red color for the bounding box
+                # cv2.rectangle(frame, (xx1, yy1), (xx2, yy2), color, 2)
+                cropped_img = frame[y1:y2, x1:x2]
+                # Save the cropped image with a unique filename
+                crop_filename = os.path.join(output_dir, f'no_helmet_{frame_count:04d}.jpg')
+                list_image.append(cropped_img.copy())
+                cv2.imwrite(crop_filename, cropped_img)
+                frame_count += 1
     return list_image
 
-# Test the function 
-input_path = 'D:\\1\\Hacka\\bitgram-energy\\model\\data\\input\\movie2.mp4'
-helmet_detect(input_path)
+
+# # Test the function 
+# input_path = 'D:\\1\\Hacka\\bitgram-energy\\model\\data\\input\\input2.mp4'
+# helmet_detect(input_path)
