@@ -3,7 +3,7 @@ from tempfile import NamedTemporaryFile
 import os
 import cv2
 from flask_cors import CORS
-from helmet_detector.helmet_detector import helmet_detect
+from helmet_detector.test import helmet_detect
 
 app = Flask(__name__)
 CORS(app)
