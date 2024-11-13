@@ -12,3 +12,5 @@ output/
 node_modules/
 model/number_plate/ultralytics/yolo/v8/detect/sample.mp4 filter=lfs diff=lfs merge=lfs -text
 output_frames/
+model/helmet_detector/runs
+runs
