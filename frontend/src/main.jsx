@@ -1,6 +1,14 @@
-import { render } from 'preact'
-import { App } from '/src/app.jsx'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './app.jsx'
 import './index.css'
+import { BrowserRouter } from 'react-router-dom'
+import StoreContextProvider from './context/StoreContext.jsx'
 
-render(<App />, document.getElementById('app'))
-
+ReactDOM.createRoot(document.getElementById('app')).render(
+  <BrowserRouter>
+    <StoreContextProvider>
+      <App />
+    </StoreContextProvider>
+  </BrowserRouter>
+)

@@ -14,3 +14,4 @@ model/number_plate/ultralytics/yolo/v8/detect/sample.mp4 filter=lfs diff=lfs mer
 output_frames/
 model/helmet_detector/runs
 runs
+processed_frames/

@@ -1,0 +1,73 @@
+.input-container {
+    width: 90%; /* Chiếm 80% chiều rộng của màn hình */
+    height: 85%; /* Chiếm 80% chiều cao của màn hình */
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    background-color: #e1e1e683;
+    position: absolute; /* Để căn giữa trên toàn màn hình */
+    top: 55%; /* Đặt phần tử ở giữa màn hình */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Dịch chuyển lại để phần tử hoàn toàn căn giữa */
+}
+
+.box {
+    width: 50%;
+    height: 80%;
+    left: 5%;
+    position: absolute;
+    border: 1px solid black;
+    
+}
+  
+  .upload-box {
+    text-align: center;
+    font-size: 50px;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  .upload-icon {
+    width: 40px;
+    margin-bottom: 10px;
+  }
+  
+  .upload-box p {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .upload-box .browse {
+    color: #665df5;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .file-info {
+    font-size: 12px;
+    color: #666;
+  }
+  
+  
+  .video-preview video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+  
+ .output {
+    right: 5%;
+    height: 80%;
+    width: 30%;
+    position: absolute;
+    border: 1px solid black;
+    overflow: auto;
+    color: black;
+ }
+
+ .output h3 {
+    color: black;
+ }
