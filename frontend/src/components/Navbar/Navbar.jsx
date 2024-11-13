@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext.jsx';
 import { assets } from '../../assets/assets.js';
@@ -8,6 +8,13 @@ import './Navbar.css'
 const Navbar = ({ setShowLogin }) => {
     const { token, setToken } = useContext(StoreContext);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem("token");
+        if (storedToken && !token) {
+            setToken(storedToken);
+        }
+    }, [token, setToken]);
 
     const logout = () => {
         localStorage.removeItem("token");
