@@ -18,28 +18,33 @@ def helmet_detect(input_path):
     frame_count = 0  # To keep track of frame numbers for unique image filenames
     for r in results:
         frame = r.orig_img
+
         # Get all motorbike boxes in the frame
         motorbike_boxes = [box for box in r.boxes if int(box.cls[0]) == RIDER_CLASS_ID]
+        no_helmet_boxes = [box for box in r.boxes if int(box.cls[0]) == NO_HELMET_CLASS_ID]
 
-        # Check if any "no helmet" class exists in the frame
-        no_helmet_exists = any(int(box.cls[0]) == NO_HELMET_CLASS_ID for box in r.boxes)
+        # Process each motorbike box and check if it has any overlapping "no helmet" box
+        for motorbike_box in motorbike_boxes:
+            x1, y1, x2, y2 = map(int, motorbike_box.xyxy[0])
+            
+            # Check for overlap with any "no helmet" box
+            no_helmet_in_motorbike = any(
+                (int(no_helmet_box.xyxy[0][0]) >= x1 and int(no_helmet_box.xyxy[0][2]) <= x2 and
+                 int(no_helmet_box.xyxy[0][1]) >= y1 and int(no_helmet_box.xyxy[0][3]) <= y2)
+                for no_helmet_box in no_helmet_boxes
+            )
 
-        # If there are motorbike boxes and a "no helmet" detection, save the motorbike crops
-        if motorbike_boxes and no_helmet_exists:
-            for motorbike_box in motorbike_boxes:
-                x1, y1, x2, y2 = map(int, motorbike_box.xyxy[0])
-                # xx1,yy1,xx2,yy2 = map(int, no_helmet_exists.xyxy[0])
-                # color = (0, 0, 255)  # Red color for the bounding box
-                # cv2.rectangle(frame, (xx1, yy1), (xx2, yy2), color, 2)
+            # If a "no helmet" box is found within the motorbike box, save the motorbike crop
+            if no_helmet_in_motorbike:
                 cropped_img = frame[y1:y2, x1:x2]
-                # Save the cropped image with a unique filename
                 crop_filename = os.path.join(output_dir, f'no_helmet_{frame_count:04d}.jpg')
-                list_image.append(cropped_img.copy())
                 cv2.imwrite(crop_filename, cropped_img)
                 frame_count += 1
+                list_image.append(cropped_img.copy())
+
     return list_image
 
 
-# # Test the function 
-# input_path = 'D:\\1\\Hacka\\bitgram-energy\\model\\data\\input\\input2.mp4'
-# helmet_detect(input_path)
+# Test the function 
+input_path = 'D:\\1\\Hacka\\bitgram-energy\\model\\data\\input\\input3.mp4'
+helmet_detect(input_path)
