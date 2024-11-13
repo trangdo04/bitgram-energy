@@ -1,11 +1,28 @@
 import mongoose from "mongoose";
 
-const outputSchema = new mongoose.Schema({
-    noHelmet: {type: String, require: true},
-    licensePlate: {type: String},
-    timeStamp: {type: Date, default: Date.now}
-})
+const plateSchema = new mongoose.Schema({
+    box: {
+        type: [Number],  // Array để lưu tọa độ hộp, ví dụ: [x, y, width, height]
+        required: true,
+    },
+    text: {
+        type: String,   // Văn bản biển số được nhận diện
+        required: true,
+    },
+});
 
-const outputModel = mongoose.models.output || mongoose.model("output", outputSchema)
+const outputSchema = new mongoose.Schema({
+    noHelmet: {
+        type: String,   // URL hoặc đường dẫn của ảnh không có mũ bảo hiểm
+        required: true,
+    },
+    licensePlates: [plateSchema],  // Mảng lưu thông tin về các biển số
+    timeStamp: {
+        type: Date,
+        default: Date.now,  // Thời gian lưu vào database
+    },
+});
+
+const outputModel = mongoose.models.output || mongoose.model("output", outputSchema);
 
 export default outputModel;
