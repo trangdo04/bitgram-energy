@@ -102,17 +102,12 @@ const Input = () => {
                 <div className="output-content">
                     {loading ? (
                         <p>Loading...</p>
-                    ) : output.length > 0 ? (
+                    ) : output && output.length > 0 ? (
                         <div>
                             <div className="image-gallery">
                                 {output.map((plateInfo, index) => (
                                     <div key={index} className="image-item">
-                                        <h4>Frame {index + 1}</h4>
-                                        {plateInfo.data.map((plate, plateIndex) => (
-                                            <p key={plateIndex}>
-                                                <strong>Plate {plateIndex + 1} Text:</strong> {plate.text}
-                                            </p>
-                                        ))}
+                                        <strong>Plate {index + 1}:</strong> {plateInfo}
                                     </div>
                                 ))}
                             </div>
