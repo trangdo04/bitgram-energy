@@ -10,6 +10,7 @@ NO_HELMET_CLASS_ID = 3
 # Create a directory to save images
 output_dir = 'D:\\1\\Hacka\\bitgram-energy\\model\\data\\output'
 os.makedirs(output_dir, exist_ok=True)
+
 def helmet_detect(input_path):
     model = YOLO("D:\\1\\Hacka\\bitgram-energy\\model\\helmet_detector\\ckpt\\best.pt")
     results = model.predict(source=input_path, stream=True, save=True)
