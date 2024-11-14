@@ -61,7 +61,7 @@
 .navbar-menu .nav-link:hover::after {
     content: "";
     position: absolute;
-    bottom: -28px;
+    bottom: -15px;
     left: 0;
     width: 100%;
     height: 3px;
