@@ -52,19 +52,12 @@ const History = () => {
                     <div key={item._id} className="history-box">
                         <div className="image-container">
                             <img
-                                src={`http://localhost:5001/get_image/${item.imagePath}`}  // URL ảnh
+                                src={`http://localhost:5000/${item.imagePath}`}  // URL ảnh
                                 alt="Processed Frame"
                                 className="processed-image"
                             />
                         </div>
-                        <p><strong>License Plates:</strong></p>
-                        <ul>
-                            {item.licensePlates.map((plate) => (
-                                <li key={plate._id}>
-                                    <p>Text: {plate.text}</p>
-                                </li>
-                            ))}
-                        </ul>
+                        <p><strong>License Plates: </strong></p>{item.licensePlates}
                     </div>
                 ))}
             </div>
@@ -87,7 +80,7 @@ const History = () => {
                                 onClick={() => handlePageChange(date, -1)}
                                 disabled={currentPage === 0}
                             >
-                                Previous
+                                Before
                             </button>
                             <span>
                                 Page {currentPage + 1} of {totalPages}
@@ -96,7 +89,7 @@ const History = () => {
                                 onClick={() => handlePageChange(date, 1)}
                                 disabled={currentPage >= totalPages - 1}
                             >
-                                Next
+                                After
                             </button>
                         </div>
                     </div>
