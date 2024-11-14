@@ -65,16 +65,16 @@ const Input = () => {
 
                 if (lpResponse.status === 200) {
                     const newPlate = lpResponse.data.plates;
-                
+
                     // Kiểm tra trùng lặp nếu newPlate có dữ liệu
                     if (newPlate.length > 0) {
                         console.log(newPlate)
-                        const isPlateDuplicate = newPlate.some((plate) => 
-                            plates.some((existingPlate) => 
+                        const isPlateDuplicate = newPlate.some((plate) =>
+                            plates.some((existingPlate) =>
                                 existingPlate.data.some((existingItem) => existingItem.text === plate.text)
                             )
                         );
-                
+
                         // Nếu không trùng lặp, thêm vào plates và gửi yêu cầu lưu vào API
                         if (!isPlateDuplicate) {
                             plates.push({ imagePath: lpResponse.data.image_path, data: newPlate }); // Save recognition results
@@ -87,7 +87,7 @@ const Input = () => {
                         }
                     }
                 }
-                
+
             }
 
             setOutput(plates); // Update output with license plate recognition results
@@ -98,7 +98,9 @@ const Input = () => {
 
     return (
         <div className="input-container" onDrop={handleDrop} onDragOver={(e) => e.preventDefault()}>
+
             <div className="box">
+                <h2 className='Video'>Video Analysis</h2>
                 {!video ? (
                     <div className="upload-box">
                         <img src="src/assets/upload_icon.png" alt="Upload Icon" className="upload-icon" />
@@ -116,25 +118,29 @@ const Input = () => {
                 )}
             </div>
             <div className="output">
-                <h3>Detected License Plates:</h3>
-                {output.length > 0 ? (
-                    <div>
-                        <div className="image-gallery">
-                            {output.map((plateInfo, index) => (
-                                <div key={index} className="image-item">
-                                    <h4>Frame {index + 1}</h4>
-                                    {plateInfo.data.map((plate, plateIndex) => (
-                                        <p key={plateIndex}>
-                                            <strong>Plate {plateIndex + 1} Text:</strong> {plate.text}
-                                        </p>
-                                    ))}
-                                </div>
-                            ))}
+                <div className="output-header">
+                    <h3>Detected License Plates:</h3>
+                </div>
+                <div className="output-content">
+                    {output.length > 0 ? (
+                        <div>
+                            <div className="image-gallery">
+                                {output.map((plateInfo, index) => (
+                                    <div key={index} className="image-item">
+                                        <h4>Frame {index + 1}</h4>
+                                        {plateInfo.data.map((plate, plateIndex) => (
+                                            <p key={plateIndex}>
+                                                <strong>Plate {plateIndex + 1} Text:</strong> {plate.text}
+                                            </p>
+                                        ))}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                ) : (
-                    <p>No plates detected yet</p>
-                )}
+                    ) : (
+                        <p>No plates detected yet</p>
+                    )}
+                </div>
             </div>
         </div>
     );
