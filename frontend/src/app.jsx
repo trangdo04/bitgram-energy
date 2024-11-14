@@ -6,7 +6,7 @@ import History from './components/History/History.jsx'
 
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false)
