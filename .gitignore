@@ -15,3 +15,4 @@ output_frames/
 model/helmet_detector/runs
 runs
 processed_frames/
+bitgram/

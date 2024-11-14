@@ -1,124 +1,136 @@
 .navbar {
-    padding: 20px 0;
+    padding: 10px 20px;
     display: flex;
-    justify-content: center; /* Căn giữa navbar */
+    justify-content: space-between;
     align-items: center;
-    position: fixed; /* Đảm bảo navbar luôn nằm trên cùng của trang */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
+    height: 7.5%;
     background-color: rgb(185, 227, 245);
     z-index: 1000;
-    box-shadow: 0 2px 4px rgba(122, 25, 25, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-menu {
     display: flex;
-    justify-content: center; 
-    gap: 100px; 
-    list-style: none; 
+    gap: 20px;
+    list-style: none;
     padding: 0;
+    margin: 0;
+}
+
+.navbar-menu .nav-link {
+    color: rgb(102, 102, 102);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 5px;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+.navbar-menu p a {
+    color: rgb(102, 102, 102);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-bottom: 5px;
+    transition: color 0.3s;
+}
+
+.navbar-menu .nav-link p {
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    transition: color 0.3s;
+}
+
+.navbar-menu .nav-link:hover,
+.navbar-menu .nav-link.active {
+    color: blue;
+}
+
+.navbar-menu .nav-link.active::after,
+.navbar-menu .nav-link:hover::after {
+    content: "";
+    position: absolute;
+    bottom: -28px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: rgb(124, 172, 204);
 }
 
 .navbar-menu p {
-    color: black;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    /* Khoảng cách giữa icon và văn bản */
 }
 
 .sign-btn {
-    position: absolute;
-    right: 5%;
-    background-color: rgb(35, 25, 87);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.sign-btn:hover {
+    color: rgb(0, 0, 0);
+}
+
+.icon-image {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    vertical-align: middle;
 }
 
 .navbar-profile {
-    position: absolute;
-    right: 5%; 
-}
-
-.navbar-profile img{
-    width: 25px;
-    height: 25px;
-}
-
-.navbar-profile:hover .nav-profile-dropdown {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background-color: rgb(185, 227, 245);
-    padding: 12px 25px;
-    border-radius: 4px;
-    border: 1px solid white;
-    outline: 2px solid rgb(140, 212, 212);
-    list-style: none;
+    align-items: center;
+    gap: 15px;
+    position: relative;
 }
 
 .nav-profile-dropdown {
-    position: absolute;
-    display: none;
-    right: 0;
-    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    list-style: none;
 }
 
 .nav-profile-dropdown li {
     display: flex;
     align-items: center;
-    gap: 10px;
     cursor: pointer;
     color: black;
 }
 
-.nav-profile-dropdown img {
-    width: 20px;
+/* Chỉnh CSS cho chữ "Logout" */
+.nav-profile-dropdown li p {
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    transition: color 0.3s;
 }
 
-.nav-profile-dropdown li:hover {
-    color: rgb(210, 6, 6);
-}
-
-
-
-@media (max-width: 750px) {
-    .navbar {
-        padding: 10px 0;
-    }
-
-    .navbar .logo {
-        margin-left: 20px;
-        width: 100px;
-    }
-
-    .dropdown-translation img {
-        width: 11px;
-    }
-
-    .sub-search-icon img{
-        width: 11px;
-    }
-
-    .navbar-basket img {
-        width: 13px;
-    }
-    
-    .navbar-right {
-        gap: 10px;
-        margin-right: 20px;
-    }
-
-    .navbar-right .sign-btn {
-        padding: 6px 20px;
-        font-size: 8px;
-    }
-
-    .navbar-menu,
-    .navbar-menu a {
-        display: none;
-    }
-
-    .sub-search-icon {
-        display: block;
-    }
-
-    .navbar-search {
-        display: none;
-    }
+.icon-image,
+.profile,
+.logout_icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    vertical-align: middle;
 }

@@ -5,9 +5,9 @@
     z-index: 1;
     width: 100%;
     height: 100vh;
-    background-color: #00000090;
+    background-color: #cfc5c590;
     display: grid;
-    place-items: center; 
+    place-items: center;
 }
 
 .login-popup-container {

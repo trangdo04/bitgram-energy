@@ -1,73 +1,203 @@
 .input-container {
-    width: 90%; /* Chiếm 80% chiều rộng của màn hình */
-    height: 85%; /* Chiếm 80% chiều cao của màn hình */
-    border: 2px dashed #ccc;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center; /* Căn giữa theo chiều ngang */
-    align-items: center; /* Căn giữa theo chiều dọc */
-    background-color: #e1e1e683;
-    position: absolute; /* Để căn giữa trên toàn màn hình */
-    top: 55%; /* Đặt phần tử ở giữa màn hình */
-    left: 50%;
-    transform: translate(-50%, -50%); /* Dịch chuyển lại để phần tử hoàn toàn căn giữa */
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 50px;
+  gap: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  align-items: center;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.Video {
+  font-size: 24px;
+  color: #333;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 10px;
+  width: 100%;
 }
 
 .box {
-    width: 50%;
-    height: 80%;
-    left: 5%;
-    position: absolute;
-    border: 1px solid black;
-    
+  flex: 0 0 60%;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-height: 500px;
+  overflow: hidden;
 }
-  
-  .upload-box {
-    text-align: center;
-    font-size: 50px;
-    color: #333;
-    font-weight: 600;
-  }
-  
-  .upload-icon {
-    width: 40px;
-    margin-bottom: 10px;
-  }
-  
-  .upload-box p {
-    font-size: 16px;
-    color: #333;
-  }
-  
-  .upload-box .browse {
-    color: #665df5;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-  
-  .file-info {
-    font-size: 12px;
-    color: #666;
-  }
-  
-  
-  .video-preview video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 15px;
-  }
-  
- .output {
-    right: 5%;
-    height: 80%;
-    width: 30%;
-    position: absolute;
-    border: 1px solid black;
-    overflow: auto;
-    color: black;
- }
 
- .output h3 {
-    color: black;
- }
+.upload-box {
+  width: 100%;
+  max-width: 400px;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  padding: 40px;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.upload-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+  opacity: 0.6;
+}
+
+.upload-box p {
+  color: #666;
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.upload-box .browse {
+  color: #665df5;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.file-info {
+  font-size: 14px;
+  color: #999;
+}
+
+.video-preview {
+  overflow: hidden;
+  object-fit: contain;
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+.video-preview video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  /* display: block; */
+}
+
+/* .output {
+  flex: 0 0 40%;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+} */
+.output {
+  flex: 0 0 40%;
+  padding: 20px;
+  background-color: transparent;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-height: 500px;
+  /* Đặt chiều cao tối đa */
+  overflow-y: auto;
+  /* Thêm thanh cuộn dọc khi cần */
+}
+
+.output {
+  flex: 0 0 40%;
+  padding: 25px;
+  background-color: transparent;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  /* Đặt chiều cao tối đa */
+  overflow: hidden;
+  /* Ẩn thanh cuộn chính */
+}
+
+.output-header {
+  padding: 20px;
+  text-align: center;
+  background-color: transparent;
+  border-bottom: 1px solid #ddd;
+}
+
+.output-header h3 {
+  font-size: 20px;
+  color: #333;
+  font-weight: bold;
+  margin: 0;
+}
+
+.output-content {
+  padding: 20px;
+  overflow-y: auto;
+  /* Chỉ cho phép cuộn nội dung */
+  max-height: 500px;
+  /* Giới hạn chiều cao cho nội dung cuộn */
+}
+
+
+.output h3 {
+  font-size: 20px;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.output-content {
+  padding: 20px;
+  overflow-y: auto;
+  /* Chỉ cho phép cuộn nội dung */
+  max-height: 500px;
+  /* Giới hạn chiều cao cho nội dung cuộn */
+}
+
+.output p {
+  color: #666;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #4b75a2;
+  color: rgb(0, 0, 0);
+  border: 3px solid #820e1d;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  background-color: #9ac1eb;
+}

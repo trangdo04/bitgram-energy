@@ -8,10 +8,10 @@ HELMET_CLASS_ID = 2
 NO_HELMET_CLASS_ID = 3
 
 # Create a directory to save images
-output_dir = 'D:\\Bit garam\\bitgram-energy\\model\\data\\output'
+output_dir = 'C:\\Users\\trangdo\\Documents\\HocTap\\Khac\\bitgram\\bitgram-energy\\model\\data\\output'
 os.makedirs(output_dir, exist_ok=True)
 def helmet_detect(input_path):
-    model = YOLO("D:\\Bit garam\\bitgram-energy\\model\\helmet_detector\\ckpt\\best.pt")
+    model = YOLO("C:\\Users\\trangdo\\Documents\\HocTap\\Khac\\bitgram\\bitgram-energy\\model\\helmet_detector\\ckpt\\best.pt")
     results = model.predict(source=input_path, stream=True, save=True)
     list_image=[]
     # Process all results and save images
@@ -46,5 +46,5 @@ def helmet_detect(input_path):
 
 
 # # # Test the function 
-# input_path = 'D:\\Bit garam\\bitgram-energy\\model\\data\\input\\test.mp4'
+# input_path = 'C:\\Users\\trangdo\\Documents\\HocTap\\Khac\\bitgram\\bitgram-energy\\model\\data\\input\\input.mp4'
 # helmet_detect(input_path)
