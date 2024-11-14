@@ -96,14 +96,9 @@ const Input = () => {
                 {output.length > 0 ? (
                     <div>
                         <div className="image-gallery">
-                            {output.map((plateInfo, index) => (
-                                <div key={index} className="image-item">
-                                    <h4>Frame {index + 1}</h4>
-                                    {plateInfo.data.map((plate, plateIndex) => (
-                                        <p key={plateIndex}>
-                                            <strong>Plate {plateIndex + 1} Text:</strong> {plate}
-                                        </p>
-                                    ))}
+                            {output.map((plate, index) => (
+                                <div key={index}>
+                                    <strong>Plate {index + 1}: </strong>{plate}
                                 </div>
                             ))}
                         </div>

@@ -57,14 +57,7 @@ const History = () => {
                                 className="processed-image"
                             />
                         </div>
-                        <p><strong>License Plates</strong></p>
-                        <ul>
-                            {item.licensePlates.map((plate) => (
-                                <li key={plate._id}>
-                                    <p>{plate.text}</p>
-                                </li>
-                            ))}
-                        </ul>
+                        <p><strong>License Plates: </strong></p>{item.licensePlates}
                     </div>
                 ))}
             </div>

@@ -201,3 +201,7 @@ button {
 button:hover {
   background-color: #9ac1eb;
 }
+
+.image-gallery {
+  color: black;
+}
