@@ -6,6 +6,7 @@ const Input = () => {
     const [input, setInput] = useState(null);
     const [image, setImage] = useState([]); // Renamed to imageUrls for clarity
     const [output, setOutput] = useState([]); // Initialize output state
+    const [loading, setLoading] = useState(false);
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -27,6 +28,7 @@ const Input = () => {
     };
 
     const clickButton = async () => {
+        setLoading(true);
         const formData = new FormData();
         formData.append('video', input);
 
@@ -41,19 +43,19 @@ const Input = () => {
 
             if (response.status === 200) {
                 const results = response.data.results;
-                for (const result of results){
+                for (const result of results) {
                     const newPlate = result.plates
                     const imagePath = result.image_path
                     if (newPlate.length > 0 && newPlate[0].text.length > 6) {
                         const newPlateText = newPlate[0].text;
 
                         // Kiểm tra nếu biển số là chuỗi con của bất kỳ biển số nào trong plates
-                        const isPlateDuplicate = plates.some((existingPlateText) => 
+                        const isPlateDuplicate = plates.some((existingPlateText) =>
                             existingPlateText.includes(newPlateText) || newPlateText.includes(existingPlateText)
                         );
 
                         if (!isPlateDuplicate) {
-                            plates.push(newPlateText); 
+                            plates.push(newPlateText);
                             await axios.post('http://localhost:4000/api/output/save', {
                                 email: localStorage.getItem("email"),
                                 imagePath: imagePath,
@@ -68,6 +70,7 @@ const Input = () => {
         } catch (error) {
             console.error('Error uploading video:', error);
         }
+        setLoading(false);
     };
 
     return (
@@ -92,20 +95,32 @@ const Input = () => {
                 )}
             </div>
             <div className="output">
-                <h3>Detected License Plates:</h3>
-                {output.length > 0 ? (
-                    <div>
-                        <div className="image-gallery">
-                            {output.map((plate, index) => (
-                                <div key={index}>
-                                    <strong>Plate {index + 1}: </strong>{plate}
-                                </div>
-                            ))}
+                <div className="output-header">
+                    <h3>Detected License Plates:</h3>
+                </div>
+
+                <div className="output-content">
+                    {loading ? (
+                        <p>Loading...</p>
+                    ) : output.length > 0 ? (
+                        <div>
+                            <div className="image-gallery">
+                                {output.map((plateInfo, index) => (
+                                    <div key={index} className="image-item">
+                                        <h4>Frame {index + 1}</h4>
+                                        {plateInfo.data.map((plate, plateIndex) => (
+                                            <p key={plateIndex}>
+                                                <strong>Plate {plateIndex + 1} Text:</strong> {plate.text}
+                                            </p>
+                                        ))}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                ) : (
-                    <p>No plates detected yet</p>
-                )}
+                    ) : (
+                        <p>No plates detected yet</p>
+                    )}
+                </div>
             </div>
         </div>
     );
