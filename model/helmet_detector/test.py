@@ -45,6 +45,6 @@ def helmet_detect(input_path):
     return list_image
 
 
-# # Test the function 
-input_path = 'D:\\Bit garam\\bitgram-energy\\model\\data\\input\\test.mp4'
-helmet_detect(input_path)
+# # # Test the function 
+# input_path = 'D:\\Bit garam\\bitgram-energy\\model\\data\\input\\test.mp4'
+# helmet_detect(input_path)
