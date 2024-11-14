@@ -6,6 +6,7 @@ const Input = () => {
     const [input, setInput] = useState(null);
     const [image, setImage] = useState([]); // Renamed to imageUrls for clarity
     const [output, setOutput] = useState([]); // Initialize output state
+    const [loading, setLoading] = useState(false);
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -27,6 +28,7 @@ const Input = () => {
     };
 
     const clickButton = async () => {
+        setLoading(true);
         const formData = new FormData();
         formData.append('video', input);
 
@@ -94,6 +96,7 @@ const Input = () => {
         } catch (error) {
             console.error('Error recognizing LP:', error);
         }
+        setLoading(false);
     };
 
     return (
@@ -121,8 +124,11 @@ const Input = () => {
                 <div className="output-header">
                     <h3>Detected License Plates:</h3>
                 </div>
+
                 <div className="output-content">
-                    {output.length > 0 ? (
+                    {loading ? (
+                        <p>Loading...</p>
+                    ) : output.length > 0 ? (
                         <div>
                             <div className="image-gallery">
                                 {output.map((plateInfo, index) => (
