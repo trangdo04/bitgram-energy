@@ -72,7 +72,9 @@ const Input = () => {
 
     return (
         <div className="input-container" onDrop={handleDrop} onDragOver={(e) => e.preventDefault()}>
+
             <div className="box">
+                <h2 className='Video'>Video Analysis</h2>
                 {!video ? (
                     <div className="upload-box">
                         <img src="src/assets/upload_icon.png" alt="Upload Icon" className="upload-icon" />

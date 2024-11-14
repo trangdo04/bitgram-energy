@@ -1,18 +1,26 @@
 import os
+import sys
 from ultralytics import YOLO
 import cv2
 
-# Define class IDs for motorbike and helmet
+# Add the parent directory to sys.path for module imports
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+# Class IDs for motorbike and helmet
 RIDER_CLASS_ID = 1  
 HELMET_CLASS_ID = 2     
 NO_HELMET_CLASS_ID = 3
 
-# Create a directory to save images
-output_dir = 'D:\\Bit garam\\bitgram-energy\\model\\data\\output'
+output_dir = os.path.join(os.path.dirname(__file__), 'output')
 os.makedirs(output_dir, exist_ok=True)
+
 def helmet_detect(input_path):
-    model = YOLO("D:\\Bit garam\\bitgram-energy\\model\\helmet_detector\\ckpt\\best.pt")
-    results = model.predict(source=input_path, stream=True, save=True)
+
+    # Load model
+    model_path = os.path.join(os.path.dirname(__file__),'ckpt', 'best.pt')
+    model = YOLO(model_path)
+
+    results = model.predict(source=input_path, stream=True, save=True, save_dir=output_dir)
     list_image=[]
     # Process all results and save images
     frame_count = 0  # To keep track of frame numbers for unique image filenames
@@ -45,6 +53,7 @@ def helmet_detect(input_path):
     return list_image
 
 
-# # # Test the function 
-# input_path = 'D:\\Bit garam\\bitgram-energy\\model\\data\\input\\test.mp4'
-# helmet_detect(input_path)
+if __name__ == '__main__':
+    # test
+    input_path = os.path.join(os.path.dirname(__file__), 'data', 'input', 'test.mp4')
+    helmet_detect(input_path)
