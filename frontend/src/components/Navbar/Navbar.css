@@ -70,9 +70,8 @@
 
 .navbar-menu p {
     display: flex;
-    align-items: center;
     gap: 5px;
-    /* Khoảng cách giữa icon và văn bản */
+    align-items: flex-end;
 }
 
 .sign-btn {
