@@ -37,62 +37,36 @@ const Input = () => {
                 },
             });
 
+            const plates = []
+
             if (response.status === 200) {
-                console.log(response.data.image_urls);
-                recognizeLP(response.data.image_urls);
-            }
-        } catch (error) {
-            console.error('Error uploading video:', error);
-        }
-    };
+                const results = response.data.results;
+                for (const result of results){
+                    const newPlate = result.plates
+                    const imagePath = result.image_path
+                    if (newPlate.length > 0 && newPlate[0].text.length > 6) {
+                        const newPlateText = newPlate[0].text;
 
-    const recognizeLP = async (imageUrls) => {
-        try {
-            const plates = [];
-            for (const imageUrl of imageUrls) {
-                const imageResponse = await axios.get(`http://localhost:5000/output_frames/${imageUrl}`, {
-                    responseType: 'blob',
-                });
-
-                const formData = new FormData();
-                formData.append('file', imageResponse.data, 'frame.jpg');
-
-                const lpResponse = await axios.post('http://localhost:5001/lp_recognition', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
-
-                if (lpResponse.status === 200) {
-                    const newPlate = lpResponse.data.plates;
-                
-                    // Kiểm tra trùng lặp nếu newPlate có dữ liệu
-                    if (newPlate.length > 0) {
-                        console.log(newPlate)
-                        const isPlateDuplicate = newPlate.some((plate) => 
-                            plates.some((existingPlate) => 
-                                existingPlate.data.some((existingItem) => existingItem.text === plate.text)
-                            )
+                        // Kiểm tra nếu biển số là chuỗi con của bất kỳ biển số nào trong plates
+                        const isPlateDuplicate = plates.some((existingPlateText) => 
+                            existingPlateText.includes(newPlateText) || newPlateText.includes(existingPlateText)
                         );
-                
-                        // Nếu không trùng lặp, thêm vào plates và gửi yêu cầu lưu vào API
+
                         if (!isPlateDuplicate) {
-                            plates.push({ imagePath: lpResponse.data.image_path, data: newPlate }); // Save recognition results
+                            plates.push(newPlateText); 
                             await axios.post('http://localhost:4000/api/output/save', {
                                 email: localStorage.getItem("email"),
-                                imagePath: lpResponse.data.image_path,
-                                licensePlates: newPlate,
+                                imagePath: imagePath,
+                                licensePlates: newPlateText,
                                 timeStamp: new Date().toISOString()
                             });
                         }
                     }
                 }
-                
             }
-
-            setOutput(plates); // Update output with license plate recognition results
+            setOutput(plates)
         } catch (error) {
-            console.error('Error recognizing LP:', error);
+            console.error('Error uploading video:', error);
         }
     };
 
@@ -125,7 +99,7 @@ const Input = () => {
                                     <h4>Frame {index + 1}</h4>
                                     {plateInfo.data.map((plate, plateIndex) => (
                                         <p key={plateIndex}>
-                                            <strong>Plate {plateIndex + 1} Text:</strong> {plate.text}
+                                            <strong>Plate {plateIndex + 1} Text:</strong> {plate}
                                         </p>
                                     ))}
                                 </div>

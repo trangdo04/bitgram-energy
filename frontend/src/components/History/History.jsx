@@ -52,7 +52,7 @@ const History = () => {
                     <div key={item._id} className="history-box">
                         <div className="image-container">
                             <img
-                                src={`http://localhost:5001/get_image/${item.imagePath}`}  // URL ảnh
+                                src={`http://localhost:5000/${item.imagePath}`}  // URL ảnh
                                 alt="Processed Frame"
                                 className="processed-image"
                             />
