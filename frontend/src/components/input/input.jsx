@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
-function Input() {
+import './input.css';
+const Input = () => {
     const [video, setVideo] = useState(null);
     const [input, setInput] = useState(null);
-    const [imageUrls, setImageUrls] = useState([]); // Renamed to imageUrls for clarity
+    const [image, setImage] = useState([]); // Renamed to imageUrls for clarity
     const [output, setOutput] = useState([]); // Initialize output state
 
     const handleFileChange = (e) => {
@@ -39,7 +39,6 @@ function Input() {
 
             if (response.status === 200) {
                 console.log(response.data.image_urls);
-                setImageUrls(response.data.image_urls);
                 recognizeLP(response.data.image_urls);
             }
         } catch (error) {
@@ -65,14 +64,30 @@ function Input() {
                 });
 
                 if (lpResponse.status === 200) {
-                    plates.push({ imageUrl, data: lpResponse.data.plates }); // Save recognition results
-                    console.log(lpResponse.data.plates)
-                    await axios.post('http://localhost:4000/api/output/save', {
-                        noHelmet: imageUrl,
-                        licensePlates: lpResponse.data.plates,
-                        timeStamp: new Date().toISOString()
-                    });
+                    const newPlate = lpResponse.data.plates;
+                
+                    // Kiểm tra trùng lặp nếu newPlate có dữ liệu
+                    if (newPlate.length > 0) {
+                        console.log(newPlate)
+                        const isPlateDuplicate = newPlate.some((plate) => 
+                            plates.some((existingPlate) => 
+                                existingPlate.data.some((existingItem) => existingItem.text === plate.text)
+                            )
+                        );
+                
+                        // Nếu không trùng lặp, thêm vào plates và gửi yêu cầu lưu vào API
+                        if (!isPlateDuplicate) {
+                            plates.push({ imagePath: lpResponse.data.image_path, data: newPlate }); // Save recognition results
+                            await axios.post('http://localhost:4000/api/output/save', {
+                                email: localStorage.getItem("email"),
+                                imagePath: lpResponse.data.image_path,
+                                licensePlates: newPlate,
+                                timeStamp: new Date().toISOString()
+                            });
+                        }
+                    }
                 }
+                
             }
 
             setOutput(plates); // Update output with license plate recognition results
@@ -83,25 +98,27 @@ function Input() {
 
     return (
         <div className="input-container" onDrop={handleDrop} onDragOver={(e) => e.preventDefault()}>
-            {!video ? (
-                <div className="upload-box">
-                    <img src="src/assets/upload_icon.png" alt="Upload Icon" className="upload-icon" />
-                    <p>Drag and drop a video or <span className="browse" onClick={() => document.getElementById('fileInput').click()}>browse</span></p>
-                    <p className="file-info">File size can be up to 1GB</p>
-                    <input type="file" id="fileInput" style={{ display: 'none' }} onChange={handleFileChange} />
-                </div>
-            ) : (
-                <>
-                    <div className="video-preview">
-                        <video src={video} controls style={{ width: '100%', height: '100%', objectFit: 'cover' }}></video>
+            <div className="box">
+                {!video ? (
+                    <div className="upload-box">
+                        <img src="src/assets/upload_icon.png" alt="Upload Icon" className="upload-icon" />
+                        <p>Drag and drop a video or <span className="browse" onClick={() => document.getElementById('fileInput').click()}>browse</span></p>
+                        <p className="file-info">File size can be up to 1GB</p>
+                        <input type="file" id="fileInput" style={{ display: 'none' }} onChange={handleFileChange} />
                     </div>
-                    <button onClick={clickButton}>Submit</button>
-                </>
-            )}
+                ) : (
+                    <>
+                        <div className="video-preview">
+                            <video src={video} ></video>
+                        </div>
+                        <button onClick={clickButton}>Submit</button>
+                    </>
+                )}
+            </div>
             <div className="output">
+                <h3>Detected License Plates:</h3>
                 {output.length > 0 ? (
                     <div>
-                        <h3>Detected License Plates:</h3>
                         <div className="image-gallery">
                             {output.map((plateInfo, index) => (
                                 <div key={index} className="image-item">
@@ -111,7 +128,6 @@ function Input() {
                                             <strong>Plate {plateIndex + 1} Text:</strong> {plate.text}
                                         </p>
                                     ))}
-                                    <img src={`http://localhost:5000/output_frames/${plateInfo.imageUrl}`} alt={`Frame ${index + 1}`} style={{ width: '100%', height: 'auto' }} />
                                 </div>
                             ))}
                         </div>

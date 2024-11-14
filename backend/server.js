@@ -3,8 +3,10 @@ import multer from 'multer'
 import path from 'path'
 import cors from 'cors'
 import { connectDB } from './config/database.js'
-import outputRouter from './outputRoute.js'
+import outputRouter from './routes/outputRoute.js'
 import FormData from 'form-data';
+import userRouter from './routes/userRoute.js'
+import 'dotenv/config'
 
 // initialize app
 const app = express()
@@ -49,6 +51,7 @@ app.use(express.json())
 app.use(cors())
 // api to handle output from model
 app.use("/api/output", outputRouter)
+app.use("/api/user", userRouter)
 
 // uncomment below line to connect to DB
 connectDB();
