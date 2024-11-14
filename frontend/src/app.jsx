@@ -1,14 +1,26 @@
-import React from 'react';
-import Input from './components/input';
+import React, { useState } from 'react'
+import Input from './components/input/input.jsx';
+import LoginPopup from './components/LoginPopup/LoginPopup.jsx'
+import Navbar from './components/Navbar/Navbar.jsx'
+import History from './components/History/History.jsx'
 
-import './app.css';
+import './App.css';
+import { Route, Routes } from 'react-router-dom';
 
-export function App() {
+const App = () => {
+  const [showLogin, setShowLogin] = useState(false)
   return (
-    <div className="app-container">
-      <div className="input-area">
-        <Input />
+    <>
+      {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : <></>}
+      <div className="app">
+        <Navbar setShowLogin={setShowLogin} />
+        <Routes>
+          <Route path='/' element={<Input />} />
+          <Route path='/history' element={<History />} />
+        </Routes>
       </div>
-    </div>
+    </>
   );
-}
+};
+
+export default App;

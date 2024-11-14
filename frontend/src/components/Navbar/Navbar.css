@@ -1,0 +1,124 @@
+.navbar {
+    padding: 20px 0;
+    display: flex;
+    justify-content: center; /* Căn giữa navbar */
+    align-items: center;
+    position: fixed; /* Đảm bảo navbar luôn nằm trên cùng của trang */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(185, 227, 245);
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(122, 25, 25, 0.1);
+}
+
+.navbar-menu {
+    display: flex;
+    justify-content: center; 
+    gap: 100px; 
+    list-style: none; 
+    padding: 0;
+}
+
+.navbar-menu p {
+    color: black;
+}
+
+.sign-btn {
+    position: absolute;
+    right: 5%;
+    background-color: rgb(35, 25, 87);
+}
+
+.navbar-profile {
+    position: absolute;
+    right: 5%; 
+}
+
+.navbar-profile img{
+    width: 25px;
+    height: 25px;
+}
+
+.navbar-profile:hover .nav-profile-dropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: rgb(185, 227, 245);
+    padding: 12px 25px;
+    border-radius: 4px;
+    border: 1px solid white;
+    outline: 2px solid rgb(140, 212, 212);
+    list-style: none;
+}
+
+.nav-profile-dropdown {
+    position: absolute;
+    display: none;
+    right: 0;
+    z-index: 1;
+}
+
+.nav-profile-dropdown li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: black;
+}
+
+.nav-profile-dropdown img {
+    width: 20px;
+}
+
+.nav-profile-dropdown li:hover {
+    color: rgb(210, 6, 6);
+}
+
+
+
+@media (max-width: 750px) {
+    .navbar {
+        padding: 10px 0;
+    }
+
+    .navbar .logo {
+        margin-left: 20px;
+        width: 100px;
+    }
+
+    .dropdown-translation img {
+        width: 11px;
+    }
+
+    .sub-search-icon img{
+        width: 11px;
+    }
+
+    .navbar-basket img {
+        width: 13px;
+    }
+    
+    .navbar-right {
+        gap: 10px;
+        margin-right: 20px;
+    }
+
+    .navbar-right .sign-btn {
+        padding: 6px 20px;
+        font-size: 8px;
+    }
+
+    .navbar-menu,
+    .navbar-menu a {
+        display: none;
+    }
+
+    .sub-search-icon {
+        display: block;
+    }
+
+    .navbar-search {
+        display: none;
+    }
+}

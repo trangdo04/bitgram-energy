@@ -12,7 +12,11 @@ const plateSchema = new mongoose.Schema({
 });
 
 const outputSchema = new mongoose.Schema({
-    noHelmet: {
+    email: {
+        type:String,
+        required: true
+    },
+    imagePath: {
         type: String,   // URL hoặc đường dẫn của ảnh không có mũ bảo hiểm
         required: true,
     },
