@@ -57,11 +57,11 @@ const History = () => {
                                 className="processed-image"
                             />
                         </div>
-                        <p><strong>License Plates:</strong></p>
+                        <p><strong>License Plates</strong></p>
                         <ul>
                             {item.licensePlates.map((plate) => (
                                 <li key={plate._id}>
-                                    <p>Text: {plate.text}</p>
+                                    <p>{plate.text}</p>
                                 </li>
                             ))}
                         </ul>
@@ -87,7 +87,7 @@ const History = () => {
                                 onClick={() => handlePageChange(date, -1)}
                                 disabled={currentPage === 0}
                             >
-                                Previous
+                                Before
                             </button>
                             <span>
                                 Page {currentPage + 1} of {totalPages}
@@ -96,7 +96,7 @@ const History = () => {
                                 onClick={() => handlePageChange(date, 1)}
                                 disabled={currentPage >= totalPages - 1}
                             >
-                                Next
+                                After
                             </button>
                         </div>
                     </div>
