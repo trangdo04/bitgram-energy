@@ -24,8 +24,8 @@ def process_video():
         # Lưu video tải lên vào file tạm thời
         video_data.save(temp_video_file.name)
         temp_video_path = temp_video_file.name  # Lưu đường dẫn video tạm thời để xử lý
-        LP_detect = torch.hub.load('ultralytics/yolov5', 'custom', 'D:\\Bit garam\\bitgram-energy\\model\\License_plate_detector\\checkpoint\\plate_detection.pt', force_reload=True)
-        OCR = torch.hub.load('ultralytics/yolov5', 'custom', 'D:\\Bit garam\\bitgram-energy\\model\\License_plate_detector\\checkpoint\\optical_character_recognition.pt', force_reload=True)
+        LP_detect = torch.hub.load('ultralytics/yolov5', 'custom', 'D:\\VSC\\bitgram-energy\\model\\License_plate_detector\\checkpoint\\plate_detection.pt', force_reload=True)
+        OCR = torch.hub.load('ultralytics/yolov5', 'custom', 'D:\\VSC\\bitgram-energy\\model\\License_plate_detector\\checkpoint\\optical_character_recognition.pt', force_reload=True)
 
     try:
         # Xử lý video và lấy các frame không có mũ bảo hiểm

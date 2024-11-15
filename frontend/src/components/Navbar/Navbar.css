@@ -132,4 +132,7 @@
     height: 30px;
     margin-right: 5px;
     vertical-align: middle;
+    position: relative;
+    top: 0px;
+    left: 3px;
 }
