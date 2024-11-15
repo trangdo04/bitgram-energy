@@ -16,7 +16,6 @@ runs
 processed_frames/
 model/data/HelmetDetectionDataset-7/
 model/helmet_detector/training_result/
-model/output_frames/
 bitgram/
 
 # Logs
