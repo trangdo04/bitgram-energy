@@ -15,9 +15,10 @@ model/helmet_detector/runs
 runs
 processed_frames/
 model/data/HelmetDetectionDataset-7/
+model/data/Helmet-and-Number-Plate-Detection-for-Motorbike-Safety-3
 model/helmet_detector/training_result/
 bitgram/
-
+model/output_frames/
 # Logs
 logs
 *.log
